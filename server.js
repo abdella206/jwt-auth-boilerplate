@@ -6,6 +6,8 @@ const helmet = require('helmet')
 const RateLimit = require('express-rate-limit')
 const app = express();
 
+const User = require('./models/user')
+
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(helmet())
@@ -24,7 +26,7 @@ const signupLimiter = new RateLimit({
     message: "Maximum accounts created please try again later"
 })
 
-mongoose.connect('mongodb://localhost/jwtAuth', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/jwtAuth', {useNewUrlParser: true});
 const db = mongoose.connection;
 
 db.once('open', () => {
@@ -36,11 +38,22 @@ db.on('error', (err) => {
 
 
 
+
+
+
+
+app.get('/users', (req, res) => {
+    User.find({}, function (err, users) {
+        if (err) res.json(err)
+        res.json(users)
+    })
+})
+
 // app.use('/auth/login', loginLimiter)
 // app.use('/auth/signup', signupLimiter)
 
 app.use('/auth', require('./routes/auth'));
-app.use('/api', expressJWT({secret: process.env.JWT_SECRET}), require('./routes/api'));
+app.use('/api', expressJWT({secret: process.env.JWT_SECRET, algorithms: ['RS256']}), require('./routes/api'));
 
 
 

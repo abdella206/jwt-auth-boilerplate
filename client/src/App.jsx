@@ -1,3 +1,117 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useState, useEffect } from "react";
+// import axios from 'axios';
+// import Login from './Login'
+// import Signup from './Signup'
+// import "./App.css"
+
+
+
+
+
+
+// const App = () => {
+
+//    const [token, setToken] = useState('') 
+//    const [user, setUser] = useState(null) 
+//    const [errorMessage, setErrorMessage] = useState('') 
+//    const [apiDate, setApiDate] = useState(null) 
+  
+
+
+//     useEffect(() => {
+//       checkForLocalToken()
+//     }, []);
+
+
+//       const checkForLocalToken = () => {
+//    // var token = localStorage.getItem('mernToken')
+//     if (!token || token === 'undefined') {
+//       //  token is invalid or missing
+//       localStorage.removeItem('mernToken');
+//       setToken('')
+//       setUser(null)
+   
+//     } else {
+//       // we found a token in localStorage, verify it
+//       axios.post('/auth/me/from/token', { token })
+//         .then(res => {
+//           if (res.data.type === 'error') {
+//             localStorage.removeItem('mernToken')
+//             setToken('')
+//             setUser(null)
+//             setErrorMessage( res.data.message)
+         
+//           } else {
+//             localStorage.setItem('mernToken', res.data.token);
+
+//             setToken(res.data.token)
+//             setUser(res.data.user)
+//             setErrorMessage('')
+          
+//           }
+//         })
+//     }
+//   }
+
+//   const liftToken = (data) => {
+//     this.setState({
+//       token: data.token,
+//       user: data.user
+//     })
+//   }
+
+//   const logout = () => {
+//     // Remove token from localStore
+//     localStorage.removeItem('mernToken')
+//     // Remove user and token from state
+//     setToken('')
+//     setUser(null)
+//   }
+
+
+//       if(user) {
+//         return(
+//           <>
+//           <p>PLease signup or login</p>
+//           <Login liftToken={liftToken} />
+//           <Signup liftToken={liftToken} />
+//         </>
+//         )
+//       }
+//     return (
+
+//         <div className="App">
+//             hello
+//             <Login liftToken={liftToken} />
+//             <Signup liftToken={liftToken} />
+          
+//         </div>
+//     )
+
+// }
+
+// export default App
+
+
+
+
+
+
+
+  
 import React from 'react';
 import axios from 'axios';
 import Login from './Login'
