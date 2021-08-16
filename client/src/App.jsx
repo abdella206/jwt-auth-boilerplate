@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Login from './components/Login'
 import Signup from './components/Signup'
+import Navbar from './components/Navbar'
 import './App.css'
 import {
   BrowserRouter as Router,
   Route,
   Link
 } from 'react-router-dom';
+import NavBar from './components/Navbar';
 
 
 
@@ -85,15 +87,23 @@ function App() {
   if (user) {
     contents = (
       <div>
-        <p>Hello,  {user.name}</p>
-        <p onClick={logout}>Logout</p>
+        <Router>
+          <NavBar logout={logout}/>
+         
+          <h1>Hello, {user.name}</h1>
+         
+          {/* <Route exact path='/details' render={() => <Details favPlayers={favPlayers} currentPlayer={currentPlayer} handleYearChange={setYears} />} /> */}
+        </Router>
+
       </div>
     );
   } else {
     contents = (
       <div>
-        <Login liftToken={liftToken} />
-        <Signup liftToken={liftToken} />
+        <Router>
+        <Route exact path='/' render={() =><Login liftToken={liftToken} /> }/>
+        <Route exact path='/signup' render={() => <Signup liftToken={liftToken} />}/>
+        </Router>
       </div>
     )
   }
@@ -102,7 +112,6 @@ function App() {
       <div className="App">
         {contents}
       </div>
-
     </>
   );
 }
