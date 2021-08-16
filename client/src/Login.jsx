@@ -1,66 +1,55 @@
-import React from 'react'
+import React, { useState } from 'react';
 import axios from 'axios';
 
-class Login extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            email: '',
-            password: '',
-            message: ''
-        }
-        this.handleEmailChange = this.handleEmailChange.bind(this)
-        this.handlePasswordChange = this.handlePasswordChange.bind(this)
-        this.handelSubmit = this.handelSubmit.bind(this)
+
+
+const Login = (props) => {
+    
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState(null)
+    const [message, setMessage] = useState('')
+    
+
+
+   const handleEmailChange = (e) => {
+        setEmail(e.target.value)
     }
 
-    handleEmailChange(e) {
-        this.setState({
-            email: e.target.value
-        })
+   const handlePasswordChange = (e) => {
+        setPassword(e.target.value)
     }
 
-    handlePasswordChange(e) {
-        this.setState({
-            password: e.target.value
-        })
-    }
-
-    handelSubmit(e) {
+    const handelSubmit = (e) => {
         e.preventDefault()
         axios.post('/auth/login', {
-            email: this.state.email,
-            password: this.state.password
+            email: email,
+            password: password
         }).then(res => {
             if(res.data.type === 'error') {
-                this.setState({
-                    message: res.data.message
-                })
+                setMessage(res.data.message)
             } else {
                 localStorage.setItem('mernToken', res.data.token)
-                this.props.liftToken(res.data)
+                props.liftToken(res.data)
             }
         }).catch(err => {
-            this.setState({
-                message: "Maximum login attempts exceeded. Please try again later."
-            })
+            setMessage("Maximum login attempts exceeded. Please try again later.")
         })
     }
 
 
-    render() {
+    
 
         return (
             <div className="Login">
                 <h3>Log into your account:
-                    <form onSubmit={this.handelSubmit}>
-                        <input onChange={this.handleEmailChange} 
-                                value={this.state.email} 
+                    <form onSubmit={handelSubmit}>
+                        <input onChange={handleEmailChange} 
+                                value={email} 
                                 type="email"
                                 name="email"
                                 placeholder="Enter your email" /><br />
-                        <input onChange={this.handlePasswordChange} 
-                                value={this.state.password} 
+                        <input onChange={handlePasswordChange} 
+                                value={password} 
                                 type="password"
                                 name="password"
                                 placeholder="Enter your password" /><br />
@@ -69,7 +58,8 @@ class Login extends React.Component {
                 </h3>
             </div>
         )
-    }
+    
 }
 
 export default Login
+
