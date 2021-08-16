@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Login from './Login'
-import Signup from './Signup'
+import Login from './components/Login'
+import Signup from './components/Signup'
 import './App.css'
 import {
   BrowserRouter as Router,
